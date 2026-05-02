@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbearia do Vini</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #0d0d0d;
+        color: #fff;
+      }
+
+      /* HEADER */
+      header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(10px);
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 40px;
+        z-index: 1000;
+      }
+
+      header h1 {
+        color: #d4af37;
+        font-weight: 600;
+      }
+
+      nav a {
+        color: #fff;
+        margin-left: 20px;
+        text-decoration: none;
+        position: relative;
+      }
+
+      nav a::after {
+        content: "";
+        width: 0;
+        height: 2px;
+        background: #d4af37;
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        transition: 0.3s;
+      }
+
+      nav a:hover::after {
+        width: 100%;
+      }
+
+      /* HERO */
+      .hero {
+        height: 100vh;
+        background:
+          linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)),
+          url("https://images.unsplash.com/photo-1585747860715-2ba37e788b70")
+            no-repeat center;
+        background-size: cover;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .hero h2 {
+        font-size: 3em;
+        margin-bottom: 10px;
+      }
+
+      .hero p {
+        opacity: 0.8;
+      }
+
+      .hero button {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border: none;
+        background: #d4af37;
+        color: #000;
+        font-weight: 600;
+        border-radius: 30px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .hero button:hover {
+        transform: scale(1.05);
+      }
+
+      /* SECTION */
+      section {
+        padding: 80px 20px;
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #d4af37;
+      }
+
+      /* SERVIÇOS */
+      .servicos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: #1a1a1a;
+        padding: 25px;
+        border-radius: 10px;
+        text-align: center;
+        transition: 0.3s;
+        border: 1px solid #222;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: #d4af37;
+      }
+
+      .card h3 {
+        margin-bottom: 10px;
+      }
+
+      /* FORM */
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      input,
+      select {
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        background: #1a1a1a;
+        color: #fff;
+      }
+
+      button {
+        background: #d4af37;
+        color: #000;
+        font-weight: 600;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #000;
+        text-align: center;
+        padding: 20px;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Barbearia do Vini</h1>
+      <nav>
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviços</a>
+        <a href="#agendamento">Agendar</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Seu estilo começa aqui!</h2>
+      <p>Corte na régua, barba alinhada e atendimento de alto nível</p>
+
+      <a
+        href="https://wa.me/5515988287945?text=Olá,%20vim%20pelo%20site%20e%20quero%20agendar"
+        target="_blank"
+      >
+        <button>Agendar no WhatsApp</button>
+      </a>
+    </section>
+
+    <section id="sobre">
+      <h2>Sobre</h2>
+      <p style="text-align: center; opacity: 0.8">
+        Um espaço moderno pensado para quem valoriza estilo, conforto e
+        qualidade.
+      </p>
+    </section>
+
+    <section id="servicos">
+      <h2>Serviços</h2>
+
+      <div class="servicos">
+        <div class="card">
+          <h3>Corte</h3>
+          <p>R$ 30</p>
+        </div>
+
+        <div class="card">
+          <h3>Barba</h3>
+          <p>R$ 20</p>
+        </div>
+
+        <div class="card">
+          <h3>Combo</h3>
+          <p>R$ 45</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="agendamento">
+      <h2>Agendamento</h2>
+
+      <form onsubmit="agendar(event)">
+        <input type="text" id="nome" placeholder="Seu nome" required />
+
+        <select id="servico" required>
+          <option value="">Escolha o serviço</option>
+          <option>Corte</option>
+          <option>Barba</option>
+          <option>Combo</option>
+        </select>
+
+        <input type="date" id="data" required />
+        <input type="time" id="hora" required />
+
+        <button type="submit">Confirmar</button>
+      </form>
+
+      <p id="resultado"></p>
+    </section>
+
+    <footer>
+      <p>© 2026 Barbearia do Vini</p>
+    </footer>
+
+    <script>
+      function agendar(event) {
+        event.preventDefault();
+
+        let nome = document.getElementById("nome").value;
+        let servico = document.getElementById("servico").value;
+        let data = document.getElementById("data").value;
+        let hora = document.getElementById("hora").value;
+
+        document.getElementById("resultado").innerText =
+          `✔️ ${nome}, seu horário para ${servico} foi marcado em ${data} às ${hora}`;
+      }
+    </script>
+  </body>
+</html>
+<section id="avaliacoes">
+  <h2>Avaliações</h2>
+
+  <div class="servicos">
+    <div class="card">
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>"Melhor corte da região, não me arrepende de vdd!"</p>
+      <strong>- Gabriel Souza</strong>
+    </div>
+
+    <div class="card">
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>"Ambiente muito bonito e profissional."</p>
+      <strong>- Murillo Estevan</strong>
+    </div>
+
+    <div class="card">
+      <p>⭐⭐⭐⭐⭐</p>
+      <p>"Fiz até o plano mensal, corta muito bem!"</p>
+      <strong>- Gabriel Vaz</strong>
+    </div>
+  </div>
+</section>
+<section>
+  <h2>Localização</h2>
+
+  <iframe
+    src="https://www.google.com/maps?q=Nova%20Esperança%20Sorocaba&output=embed"
+    width="100%"
+    height="300"
+    style="border: 0; border-radius: 10px"
+    allowfullscreen=""
+    loading="lazy"
+  >
+  </iframe>
+</section>
+<a href="https://wa.me/5515988287945" target="_blank" class="whatsapp"> 💬 </a>
+
+<style>
+  .whatsapp {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #25d366;
+    color: #fff;
+    font-size: 24px;
+    padding: 15px;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+</style>
+<h2>Agende seu corte em segundos</h2>
