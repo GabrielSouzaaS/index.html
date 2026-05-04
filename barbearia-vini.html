@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Barbearia do Vini</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: "Poppins", sans-serif; }
+      body { background: #0d0d0d; color: #fff; }
+
+      /* HEADER */
+      header {
+        position: fixed; width: 100%; top: 33px;
+        background: rgba(0,0,0,0.8); backdrop-filter: blur(10px);
+        display: flex; justify-content: space-between;
+        padding: 15px 40px; z-index: 1000;
+      }
+      header h1 { color: #d4af37; font-weight: 600; }
+      nav a { color: #fff; margin-left: 20px; text-decoration: none; position: relative; }
+      nav a::after { content:""; width:0; height:2px; background:#d4af37; position:absolute; left:0; bottom:-5px; transition:0.3s; }
+      nav a:hover::after { width:100%; }
+
+      /* HERO */
+      .hero {
+        height: 100vh;
+        background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+          url("https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1600&q=80") no-repeat center;
+        background-size: cover;
+        display: flex; flex-direction: column;
+        justify-content: center; align-items: center;
+        text-align: center; padding: 20px;
+        padding-top: 93px;
+      }
+      .hero h2 { font-size: 3em; margin-bottom: 10px; }
+      .hero p { opacity: 0.8; }
+      .hero button {
+        margin-top: 20px; padding: 12px 30px; border: none;
+        background: #d4af37; color: #000; font-weight: 600;
+        border-radius: 30px; cursor: pointer; transition: 0.3s;
+      }
+      .hero button:hover { transform: scale(1.05); }
+
+      /* SECTION */
+      section { padding: 80px 20px; max-width: 1000px; margin: auto; }
+      h2 { text-align: center; margin-bottom: 30px; color: #d4af37; }
+
+      /* SOBRE */
+      .sobre-content { max-width: 800px; margin: 0 auto; }
+      .sobre-destaque {
+        text-align: center; font-size: 1.1em; opacity: 0.9;
+        line-height: 1.8; margin-bottom: 40px;
+        border-left: 3px solid #d4af37; padding-left: 16px;
+      }
+      .sobre-grid {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 24px; margin-bottom: 40px;
+      }
+      .sobre-item {
+        background: #1a1a1a; border: 1px solid #222;
+        border-radius: 12px; padding: 24px; text-align: center; transition: 0.3s;
+      }
+      .sobre-item:hover { border-color: #d4af37; transform: translateY(-4px); }
+      .sobre-icone { font-size: 2em; display: block; margin-bottom: 12px; }
+      .sobre-item h3 { color: #d4af37; margin-bottom: 8px; font-size: 1em; }
+      .sobre-item p { opacity: 0.75; font-size: 0.9em; line-height: 1.6; }
+      .sobre-numeros {
+        display: flex; justify-content: center; gap: 40px;
+        margin-bottom: 32px; flex-wrap: wrap;
+      }
+      .sobre-num-item {
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+      }
+      .sobre-num {
+        font-size: 2em; font-weight: 700; color: #d4af37; line-height: 1;
+      }
+      .sobre-num-label {
+        font-size: 0.75em; opacity: 0.55; text-transform: uppercase;
+        letter-spacing: 0.5px; text-align: center;
+      }
+
+      .sobre-fechamento {
+        text-align: center; opacity: 0.7; font-style: italic;
+        font-size: 0.95em; line-height: 1.7;
+      }
+
+      /* SERVIÇOS */
+      .servicos { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+      #servicos .servicos { grid-template-columns: repeat(4, 1fr); }
+      @media (max-width: 800px) { #servicos .servicos { grid-template-columns: repeat(2, 1fr); } }
+      @media (max-width: 480px) { #servicos .servicos { grid-template-columns: 1fr; } }
+      .card {
+        background: #1a1a1a; padding: 25px; border-radius: 10px;
+        text-align: center; transition: 0.3s; border: 1px solid #222;
+      }
+      .card:hover { transform: translateY(-5px); border-color: #d4af37; }
+      .card h3 { margin-bottom: 10px; }
+
+      /* AGENDAMENTO */
+      .agendamento-box {
+        background: #1a1a1a;
+        border: 1px solid #2a2a2a;
+        border-radius: 16px;
+        padding: 40px;
+        max-width: 560px;
+        margin: 0 auto;
+      }
+      .agendamento-box .campo {
+        display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px;
+      }
+      .agendamento-box label {
+        font-size: 0.8em; text-transform: uppercase;
+        letter-spacing: 1px; color: #d4af37; font-weight: 600;
+      }
+      .agendamento-box input,
+      .agendamento-box select {
+        padding: 12px 16px; border: 1px solid #333;
+        border-radius: 8px; background: #111; color: #fff;
+        font-size: 1em; font-family: "Poppins", sans-serif;
+        outline: none; transition: border 0.3s;
+      }
+      .agendamento-box input:focus,
+      .agendamento-box select:focus { border-color: #d4af37; }
+      .agendamento-box select option { background: #111; }
+
+      /* Horários */
+      .horarios-grid {
+        display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px;
+      }
+      .hora-btn {
+        padding: 8px 16px; background: #111; border: 1px solid #333;
+        border-radius: 8px; color: #fff; cursor: pointer;
+        font-family: "Poppins", sans-serif; font-size: 0.9em;
+        transition: 0.2s;
+      }
+      .hora-btn:hover { border-color: #d4af37; color: #d4af37; }
+      .hora-btn.selecionado { background: #d4af37; color: #000; border-color: #d4af37; font-weight: 600; }
+
+      /* Botão confirmar */
+      .btn-wpp {
+        width: 100%; padding: 14px; margin-top: 10px;
+        background: #25d366; color: #fff; font-weight: 600;
+        font-size: 1em; font-family: "Poppins", sans-serif;
+        border: none; border-radius: 30px; cursor: pointer;
+        display: flex; align-items: center; justify-content: center;
+        gap: 10px; transition: 0.3s;
+      }
+      .btn-wpp:hover { transform: scale(1.03); background: #1ebe5d; }
+
+      /* AVALIAÇÕES */
+      /* reutiliza .servicos e .card */
+
+      /* MAPA */
+      .mapa-wrapper { border-radius: 12px; overflow: hidden; margin-top: 20px; }
+
+      /* FAIXA TOPO */
+      .topo-banner {
+        position: fixed; top: 0; width: 100%; z-index: 1100;
+        background: #d4af37; color: #000;
+        text-align: center; padding: 7px 20px;
+        font-size: 0.78em; font-weight: 600;
+        letter-spacing: 0.4px;
+      }
+      .topo-banner span { opacity: 0.5; margin: 0 10px; }
+
+      /* FOOTER */
+      footer { background: #000; text-align: center; padding: 30px 20px; margin-top: 40px; }
+      .footer-links { margin-bottom: 12px; }
+      .footer-links a {
+        color: #d4af37; text-decoration: none;
+        margin: 0 12px; font-size: 0.9em; transition: opacity 0.2s;
+      }
+      .footer-links a:hover { opacity: 0.7; }
+      .footer-copy { opacity: 0.4; font-size: 0.8em; }
+
+      /* ANIMAÇÕES */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+      .fade-in.visivel {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .fade-in-delay-1 { transition-delay: 0.1s; }
+      .fade-in-delay-2 { transition-delay: 0.2s; }
+      .fade-in-delay-3 { transition-delay: 0.3s; }
+
+      /* PLANO MENSAL */
+      .card.destaque {
+        border-color: #d4af37;
+        background: linear-gradient(135deg, #1a1a1a, #222);
+        position: relative;
+        overflow: hidden;
+      }
+      .card.destaque::before {
+        content: "⭐ MAIS POPULAR";
+        position: absolute; top: 12px; right: -28px;
+        background: #d4af37; color: #000;
+        font-size: 0.65em; font-weight: 700;
+        padding: 4px 36px;
+        transform: rotate(45deg);
+        letter-spacing: 0.5px;
+      }
+      .card .preco {
+        font-size: 1.4em; font-weight: 600;
+        color: #d4af37; margin: 8px 0 4px;
+      }
+      .card .desc {
+        font-size: 0.8em; opacity: 0.6; margin-top: 6px;
+      }
+
+      /* BOTÃO AGENDAR FLUTUANTE */
+      .btn-agendar-flutuante {
+        position: fixed; bottom: 20px; left: 20px;
+        background: #d4af37; color: #000;
+        font-size: 0.85em; font-weight: 700;
+        padding: 12px 20px; border-radius: 30px;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        transition: 0.3s; z-index: 999;
+        display: flex; align-items: center; gap: 6px;
+      }
+      .btn-agendar-flutuante:hover { transform: scale(1.05); }
+
+      /* WhatsApp fixo */
+      .whatsapp {
+        position: fixed; bottom: 20px; right: 20px;
+        background: #25d366; color: #fff; font-size: 24px;
+        padding: 15px; border-radius: 50%; text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+
+      /* ======= MOBILE ======= */
+
+      /* Menu hamburguer */
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+        background: none;
+        border: none;
+      }
+      .hamburger span {
+        display: block;
+        width: 24px; height: 2px;
+        background: #fff;
+        border-radius: 2px;
+        transition: 0.3s;
+      }
+      .hamburger.aberto span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .hamburger.aberto span:nth-child(2) { opacity: 0; }
+      .hamburger.aberto span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      nav.mobile-menu {
+        display: flex;
+      }
+
+      @media (max-width: 600px) {
+        /* Faixa topo menor */
+        .topo-banner { font-size: 0.65em; padding: 6px 10px; }
+
+        /* Header compacto */
+        header { padding: 14px 20px; top: 28px; }
+        header h1 { font-size: 1.1em; }
+
+        /* Mostrar hamburger, esconder nav normal */
+        .hamburger { display: flex; }
+        nav.mobile-menu {
+          display: none;
+          position: fixed;
+          top: 90px; left: 0; right: 0;
+          background: rgba(0,0,0,0.97);
+          backdrop-filter: blur(12px);
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+          z-index: 999;
+          padding: 10px 0 20px;
+          border-bottom: 1px solid #222;
+        }
+        nav.mobile-menu.aberto { display: flex; }
+        nav.mobile-menu a {
+          margin: 0;
+          padding: 16px 0;
+          width: 100%;
+          text-align: center;
+          font-size: 1em;
+          border-bottom: 1px solid #1a1a1a;
+        }
+        nav.mobile-menu a::after { display: none; }
+
+        /* Hero */
+        .hero h2 { font-size: 2em; }
+        .hero p { font-size: 0.9em; }
+        .hero button { width: 100%; max-width: 280px; }
+
+        /* Seções */
+        section { padding: 60px 16px; }
+
+        /* Agendamento box sem padding excessivo */
+        .agendamento-box { padding: 24px 16px; }
+
+        /* Botões flutuantes maiores para toque */
+        .whatsapp { padding: 14px; font-size: 22px; bottom: 16px; right: 16px; }
+        .btn-agendar-flutuante { bottom: 16px; left: 16px; padding: 12px 16px; font-size: 0.8em; }
+
+        /* Horários em grid 3 colunas no mobile */
+        .horarios-grid { gap: 8px; }
+        .hora-btn { flex: 1 1 calc(33% - 8px); text-align: center; padding: 10px 8px; }
+
+        /* Cards avaliações em coluna */
+        #avaliacoes .servicos { grid-template-columns: 1fr; }
+
+        /* Footer links empilhados */
+        .footer-links { display: flex; flex-direction: column; gap: 10px; }
+        .footer-links a { margin: 0; }
+      }
+
+      /* MODAL PLANO MENSAL */
+      .modal-overlay {
+        display: none; position: fixed; inset: 0;
+        background: rgba(0,0,0,0.75); z-index: 2000;
+        justify-content: center; align-items: center; padding: 20px;
+      }
+      .modal-overlay.aberto { display: flex; }
+      .modal-box {
+        background: #1a1a1a; border: 1px solid #d4af37;
+        border-radius: 16px; padding: 36px; max-width: 440px;
+        width: 100%; position: relative; animation: popIn 0.25s ease;
+      }
+      @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+      .modal-box h3 { color: #d4af37; font-size: 1.2em; margin-bottom: 16px; }
+      .modal-box ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+      .modal-box ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.92em; opacity: 0.85; line-height: 1.5; }
+      .modal-box ul li span.ic { font-size: 1.1em; flex-shrink: 0; }
+      .modal-fechar {
+        position: absolute; top: 14px; right: 16px;
+        background: none; border: none; color: #fff;
+        font-size: 1.4em; cursor: pointer; opacity: 0.5; transition: 0.2s;
+      }
+      .modal-fechar:hover { opacity: 1; }
+      .modal-box .btn-modal-agendar {
+        display: block; width: 100%; margin-top: 24px;
+        padding: 12px; background: #d4af37; color: #000;
+        font-weight: 700; font-size: 0.95em;
+        border: none; border-radius: 30px; cursor: pointer; transition: 0.3s;
+        text-align: center;
+      }
+      .modal-box .btn-modal-agendar:hover { transform: scale(1.03); }
+      .card.destaque { cursor: pointer; }
+      .card.destaque .saiba { font-size: 0.72em; color: #d4af37; margin-top: 8px; text-decoration: underline; }
+
+      /* AVATAR AVALIAÇÕES */
+      .avaliacao-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+      .avatar {
+        width: 42px; height: 42px; border-radius: 50%;
+        background: #d4af37; color: #000;
+        font-weight: 700; font-size: 1.1em;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .avaliacao-nome { font-weight: 600; font-size: 0.9em; }
+      .avaliacao-estrelas { font-size: 0.85em; }
+
+      /* FIX HEADER MOBILE dinâmico via JS */
+    </style>
+  </head>
+  <body>
+
+    <div class="topo-banner">
+      🕘 Seg a Sex: 9h às 13h15 &nbsp;<span>|</span>&nbsp; Sáb e Dom: 9h às 18h30 &nbsp;<span>|</span>&nbsp; 📍 Av. Adão Pereira de Camargo, 267 - Sorocaba
+    </div>
+
+    <header>
+      <h1>Barbearia do Vini</h1>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="mobile-menu" id="nav-menu">
+        <a href="#sobre" onclick="fecharMenu()">Sobre</a>
+        <a href="#servicos" onclick="fecharMenu()">Serviços</a>
+        <a href="#avaliacoes" onclick="fecharMenu()">Avaliações</a>
+      </nav>
+    </header>
+
+
+    <section class="hero">
+      <h2>Feito à mão, do seu jeito.</h2>
+      <p>Na Barbearia do Vini, cada corte é único — como você</p>
+      <button onclick="document.getElementById('sobre').scrollIntoView({behavior:'smooth'})">
+        Conheça a Barbearia
+      </button>
+    </section>
+
+    <section id="sobre" class="fade-in">
+      <h2>Sobre</h2>
+      <div class="sobre-content">
+        <p class="sobre-destaque">
+          Nascemos em 2025 com uma missão simples: elevar o padrão do cuidado masculino em Sorocaba.
+        </p>
+        <div class="sobre-grid">
+          <div class="sobre-item">
+            <span class="sobre-icone">✂️</span>
+            <h3>Técnica afiada</h3>
+            <p>Cada corte é executado com precisão e atenção ao detalhe, do degradê à navalha — sem pressa, sem erro.</p>
+          </div>
+          <div class="sobre-item">
+            <span class="sobre-icone">🏙️</span>
+            <h3>Ambiente moderno</h3>
+            <p>Um espaço urbano, limpo e bem projetado. Você sente a diferença assim que entra pela porta.</p>
+          </div>
+          <div class="sobre-item">
+            <span class="sobre-icone">🤝</span>
+            <h3>Atendimento de respeito</h3>
+            <p>Sem fila, sem enrolação. Agendamento rápido e horário respeitado — porque o seu tempo vale.</p>
+          </div>
+        </div>
+        <div class="sobre-numeros">
+          <div class="sobre-num-item">
+            <span class="sobre-num">100+</span>
+            <span class="sobre-num-label">Clientes atendidos</span>
+          </div>
+          <div class="sobre-num-item">
+            <span class="sobre-num">5★</span>
+            <span class="sobre-num-label">Avaliação média</span>
+          </div>
+          <div class="sobre-num-item">
+            <span class="sobre-num">2025</span>
+            <span class="sobre-num-label">Fundada em Sorocaba</span>
+          </div>
+        </div>
+        <p class="sobre-fechamento">
+          Mesmo sendo novos, já conquistamos clientes fiéis que voltam toda semana. Venha descobrir por quê.
+        </p>
+      </div>
+    </section>
+
+    <section id="servicos" class="fade-in">
+      <h2>Serviços</h2>
+      <div class="servicos">
+        <div class="card fade-in fade-in-delay-1" onclick="selecionarServico('Corte – R$30')" style="cursor:pointer">
+          <h3>✂️ Corte</h3>
+          <p class="preco">R$ 30</p>
+          <p class="desc">Degradê, tesoura ou máquina</p>
+        </div>
+        <div class="card fade-in fade-in-delay-2" onclick="selecionarServico('Barba – R$20')" style="cursor:pointer">
+          <h3>🪒 Barba</h3>
+          <p class="preco">R$ 20</p>
+          <p class="desc">Navalha, alinhamento e acabamento</p>
+        </div>
+        <div class="card fade-in fade-in-delay-3" onclick="selecionarServico('Combo – R$45')" style="cursor:pointer">
+          <h3>💈 Combo</h3>
+          <p class="preco">R$ 45</p>
+          <p style="font-size:0.75em;color:#25d366;font-weight:600;margin-top:4px">🏷️ Economize R$ 5 no conjunto</p>
+          <p class="desc">Corte + barba com desconto</p>
+        </div>
+        <div class="card destaque fade-in fade-in-delay-3" onclick="abrirModal()">
+          <h3>📅 Plano Mensal</h3>
+          <p style="font-size:0.78em;opacity:0.45;text-decoration:line-through;margin-bottom:2px">R$ 120</p>
+          <p class="preco">R$ 110</p>
+          <p style="font-size:0.75em;color:#25d366;font-weight:600;margin-top:4px">🏷️ Economize R$ 10 por mês</p>
+          <p class="desc">Venha quando quiser dentro do mês</p>
+          <p class="saiba">Saiba como funciona →</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- AGENDAMENTO -->
+    <section id="agendamento" class="fade-in">
+      <h2>Agende seu horário</h2>
+      <div class="agendamento-box">
+
+        <div class="campo">
+          <label>Seu nome</label>
+          <input type="text" id="nome" placeholder="Ex: João Silva" />
+        </div>
+
+        <div class="campo">
+          <label>Serviço</label>
+          <select id="servico" onchange="mostrarHorarios()">
+            <option value="">Selecione o serviço</option>
+            <option value="Corte – R$30">Corte – R$ 30</option>
+            <option value="Barba – R$20">Barba – R$ 20</option>
+            <option value="Combo – R$45">Combo – R$ 45</option>
+            <option value="Plano Mensal – R$110">Plano Mensal – R$ 110</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label>Data</label>
+          <input type="date" id="data" />
+        </div>
+
+        <div class="campo" id="campo-horarios" style="display:none">
+          <label>Horário disponível</label>
+          <div class="horarios-grid" id="horarios-grid"></div>
+          <input type="hidden" id="hora-selecionada" />
+        </div>
+
+        <button class="btn-wpp" onclick="agendar()">
+          💬 Confirmar via WhatsApp
+        </button>
+
+      </div>
+    </section>
+
+    <!-- AVALIAÇÕES -->
+    <section id="avaliacoes" class="fade-in">
+      <h2>Avaliações</h2>
+      <div class="servicos">
+        <div class="card">
+          <div class="avaliacao-header">
+            <div class="avatar">G</div>
+            <div>
+              <div class="avaliacao-nome">Gabriel Souza</div>
+              <div class="avaliacao-estrelas">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <p style="opacity:0.8;font-size:0.92em;line-height:1.6">"Melhor corte da região, não me arrependo de vdd!"</p>
+        </div>
+        <div class="card">
+          <div class="avaliacao-header">
+            <div class="avatar">M</div>
+            <div>
+              <div class="avaliacao-nome">Murillo Estevan</div>
+              <div class="avaliacao-estrelas">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <p style="opacity:0.8;font-size:0.92em;line-height:1.6">"Ambiente muito bonito e profissional."</p>
+        </div>
+        <div class="card">
+          <div class="avaliacao-header">
+            <div class="avatar">G</div>
+            <div>
+              <div class="avaliacao-nome">Gabriel Vaz</div>
+              <div class="avaliacao-estrelas">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <p style="opacity:0.8;font-size:0.92em;line-height:1.6">"Fiz até o plano mensal, corta muito bem!"</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section>
+      <h2>Localização</h2>
+      <div class="mapa-wrapper">
+        <iframe
+          src="https://www.google.com/maps?q=-23.4889024,-47.4941006&output=embed"
+          width="100%" height="300"
+          style="border:0" allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- MODAL PLANO MENSAL -->
+    <div class="modal-overlay" id="modal-plano">
+      <div class="modal-box">
+        <button class="modal-fechar" onclick="fecharModal()">✕</button>
+        <h3>📅 Como funciona o Plano Mensal</h3>
+        <ul>
+          <li><span class="ic">✂️</span> <span>Cortes ilimitados pelo preço de R$ 110 — venha quando quiser</span></li>
+          <li><span class="ic">📅</span> <span>Agende cada corte quando quiser, sem dia fixo</span></li>
+          <li><span class="ic">💬</span> <span>Confirme pelo WhatsApp e garanta seu horário</span></li>
+          <li><span class="ic">🔄</span> <span>Renove todo mês — sem fidelidade obrigatória</span></li>
+          <li><span class="ic">💰</span> <span>Preço fixo todo mês — sem surpresas no bolso</span></li>
+        </ul>
+        <button class="btn-modal-agendar" onclick="fecharModal(); document.getElementById('agendamento').scrollIntoView({behavior:'smooth'})">
+          Quero assinar o plano ✂️
+        </button>
+      </div>
+    </div>
+
+
+    <footer>
+      <div class="footer-links">
+        <a href="https://instagram.com/vinix.vtz" target="_blank">📸 @vinix.vtz</a>
+        <a href="https://wa.me/5515988287945" target="_blank">💬 WhatsApp</a>
+      </div>
+      <p class="footer-copy">© <span id="ano-footer"></span> Barbearia do Vini · Sorocaba, SP</p>
+    </footer>
+
+    <a href="#agendamento" class="btn-agendar-flutuante">✂️ Agendar</a>
+
+    <script>
+      // Horários por tipo de dia
+      const horariosSemanais = {
+        "Corte – R$30":        ["09:00","10:00","11:00","12:00"],
+        "Barba – R$20":        ["09:30","10:30","11:30","12:30"],
+        "Combo – R$45":        ["09:00","10:30","12:00"],
+        "Plano Mensal – R$110":["09:00","10:00","11:00","12:00"]
+      };
+      const horariosFDS = {
+        "Corte – R$30":        ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00"],
+        "Barba – R$20":        ["09:30","10:30","11:30","12:30","13:30","14:30","15:30","16:30","17:30"],
+        "Combo – R$45":        ["09:00","10:30","12:00","13:30","15:00","16:30"],
+        "Plano Mensal – R$110":["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"]
+      };
+
+      function ehFimDeSemana(dataStr) {
+        if (!dataStr) return false;
+        const [ano, mes, dia] = dataStr.split('-').map(Number);
+        const d = new Date(ano, mes - 1, dia);
+        return d.getDay() === 0 || d.getDay() === 6;
+      }
+
+      // Define data mínima e padrão como hoje
+      (function() {
+        const hoje = new Date();
+        const ano = hoje.getFullYear();
+        const mes = String(hoje.getMonth() + 1).padStart(2, '0');
+        const dia = String(hoje.getDate()).padStart(2, '0');
+        const dataHoje = `${ano}-${mes}-${dia}`;
+        const inputData = document.getElementById('data');
+        inputData.min = dataHoje;
+        inputData.value = dataHoje;
+      })();
+
+      // Atualiza horários ao trocar data também
+      document.getElementById('data').addEventListener('change', () => {
+        if (document.getElementById('servico').value) mostrarHorarios();
+      });
+
+      function mostrarHorarios() {
+        const servico = document.getElementById("servico").value;
+        const data    = document.getElementById("data").value;
+        const campo   = document.getElementById("campo-horarios");
+        const grid    = document.getElementById("horarios-grid");
+        document.getElementById("hora-selecionada").value = "";
+        grid.innerHTML = "";
+
+        if (!servico) { campo.style.display = "none"; return; }
+
+        const mapa = ehFimDeSemana(data) ? horariosFDS : horariosSemanais;
+        const lista = mapa[servico] || [];
+
+        campo.style.display = "flex";
+        lista.forEach(h => {
+          const btn = document.createElement("button");
+          btn.className = "hora-btn";
+          btn.textContent = h;
+          btn.onclick = () => {
+            document.querySelectorAll(".hora-btn").forEach(b => b.classList.remove("selecionado"));
+            btn.classList.add("selecionado");
+            document.getElementById("hora-selecionada").value = h;
+          };
+          grid.appendChild(btn);
+        });
+      }
+
+      // Modal plano mensal
+      function abrirModal() { document.getElementById('modal-plano').classList.add('aberto'); }
+      function fecharModal() { document.getElementById('modal-plano').classList.remove('aberto'); }
+      document.getElementById('modal-plano').addEventListener('click', function(e) {
+        if (e.target === this) fecharModal();
+      });
+
+      function formatarData(dataStr) {
+        if (!dataStr) return "";
+        const [ano, mes, dia] = dataStr.split("-");
+        return `${dia}/${mes}/${ano}`;
+      }
+
+      function agendar() {
+        const nome    = document.getElementById("nome").value.trim();
+        const servico = document.getElementById("servico").value;
+        const data    = document.getElementById("data").value;
+        const hora    = document.getElementById("hora-selecionada").value;
+
+        if (!nome)    { alert("Por favor, informe seu nome."); return; }
+        if (!servico) { alert("Escolha um serviço."); return; }
+        if (!data)    { alert("Selecione uma data."); return; }
+        if (!hora)    { alert("Selecione um horário."); return; }
+
+        const dataFormatada = formatarData(data);
+        const msg = `Olá! Vim pelo site e gostaria de agendar:\n\n👤 Nome: ${nome}\n✂️ Serviço: ${servico}\n📅 Data: ${dataFormatada}\n🕐 Horário: ${hora}\n\nPoderia confirmar?`;
+        const url = `https://wa.me/5515988287945?text=${encodeURIComponent(msg)}`;
+        window.open(url, "_blank");
+      }
+    </script>
+
+    <script>
+      // Ano dinâmico no footer
+      document.getElementById('ano-footer').textContent = new Date().getFullYear();
+
+      // Clique no card pré-seleciona serviço e rola ao formulário
+      function selecionarServico(valor) {
+        const select = document.getElementById('servico');
+        select.value = valor;
+        mostrarHorarios();
+        document.getElementById('agendamento').scrollIntoView({ behavior: 'smooth' });
+      }
+    </script>
+
+    <script>
+      function toggleMenu() {
+        const nav = document.getElementById('nav-menu');
+        const btn = document.getElementById('hamburger');
+        nav.classList.toggle('aberto');
+        btn.classList.toggle('aberto');
+      }
+      function fecharMenu() {
+        document.getElementById('nav-menu').classList.remove('aberto');
+        document.getElementById('hamburger').classList.remove('aberto');
+      }
+    </script>
+
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visivel'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+
+
+    <script>
+      // Ajusta header abaixo da faixa dinamicamente
+      function ajustarHeader() {
+        const faixa = document.querySelector('.topo-banner');
+        const header = document.querySelector('header');
+        const nav = document.getElementById('nav-menu');
+        if (faixa && header) {
+          const h = faixa.offsetHeight;
+          header.style.top = h + 'px';
+          if (nav) nav.style.top = (h + header.offsetHeight) + 'px';
+        }
+      }
+      ajustarHeader();
+      window.addEventListener('resize', ajustarHeader);
+    </script>
+  </body>
+</html>
